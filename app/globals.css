@@ -22,11 +22,14 @@
   /* Akcenty — paleta Shader-inspired (żywe gradienty na czerni) */
   --color-accent-montaz: #c9a96e;
   --color-accent-dev: #8b9daf;
-  --shader-violet: #8b5cf6;
+  --shader-orange: #f97316;
+  --shader-orange-deep: #ea580c;
+  --shader-orange-light: #fdba74;
+  --shader-orange-warm: #fed7aa;
+  --shader-amber: #fbbf24;
   --shader-blue: #3b82f6;
   --shader-coral: #f472b6;
   --shader-mint: #22d3ee;
-  --shader-orange: #fb923c;
 
   /* Stany */
   --color-scrim: rgba(0, 0, 0, 0.65);
@@ -97,7 +100,7 @@ body {
   will-change: transform;
 }
 
-.shader-mesh--cursor .shader-orb-wrap--violet {
+.shader-mesh--cursor .shader-orb-wrap--orange {
   transform: translate3d(
     calc(var(--pointer-x) * 140px),
     calc(var(--pointer-y) * 104px),
@@ -138,7 +141,7 @@ body {
   mix-blend-mode: screen;
 }
 
-.shader-orb-wrap--violet {
+.shader-orb-wrap--orange {
   width: 55vw;
   height: 55vw;
   max-width: 520px;
@@ -147,8 +150,8 @@ body {
   top: 12%;
 }
 
-.shader-orb--violet {
-  background: radial-gradient(circle, var(--shader-violet) 0%, transparent 70%);
+.shader-orb--orange {
+  background: radial-gradient(circle, var(--shader-orange) 0%, transparent 70%);
   animation: shader-float-a 22s ease-in-out infinite;
 }
 
@@ -162,7 +165,7 @@ body {
 }
 
 .shader-orb--blue {
-  background: radial-gradient(circle, var(--shader-blue) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--shader-orange-deep) 0%, transparent 70%);
   animation: shader-float-b 26s ease-in-out infinite;
 }
 
@@ -176,7 +179,7 @@ body {
 }
 
 .shader-orb--coral {
-  background: radial-gradient(circle, var(--shader-coral) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--shader-amber) 0%, transparent 70%);
   animation: shader-float-c 20s ease-in-out infinite;
 }
 
@@ -190,7 +193,7 @@ body {
 }
 
 .shader-orb--mint {
-  background: radial-gradient(circle, var(--shader-mint) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--shader-orange-light) 0%, transparent 70%);
   animation: shader-float-d 24s ease-in-out infinite;
 }
 
@@ -277,7 +280,7 @@ body {
   max-width: 480px;
   left: -8%;
   top: 42%;
-  background: radial-gradient(circle, var(--shader-violet) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--shader-orange) 0%, transparent 70%);
   animation: shader-float-b 32s ease-in-out infinite;
 }
 
@@ -287,7 +290,7 @@ body {
   max-width: 420px;
   right: -6%;
   top: 68%;
-  background: radial-gradient(circle, var(--shader-blue) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--shader-amber) 0%, transparent 70%);
   animation: shader-float-c 28s ease-in-out infinite;
 }
 
@@ -295,9 +298,9 @@ body {
   background: linear-gradient(
     120deg,
     #fff 0%,
-    #e9d5ff 35%,
-    #93c5fd 65%,
-    #fda4af 100%
+    var(--shader-orange-light) 30%,
+    var(--shader-orange) 62%,
+    var(--shader-orange-deep) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -305,7 +308,12 @@ body {
 }
 
 .label-gradient {
-  background: linear-gradient(90deg, var(--shader-violet), var(--shader-coral));
+  background: linear-gradient(
+    90deg,
+    var(--shader-orange-light),
+    var(--shader-orange),
+    var(--shader-orange-deep)
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -491,7 +499,7 @@ button.btn-pill:disabled {
   letter-spacing: 0.04em;
   line-height: 1.45;
   text-shadow:
-    0 0 40px rgba(139, 92, 246, 0.35),
+    0 0 40px rgba(249, 115, 22, 0.35),
     0 2px 0 rgba(0, 0, 0, 0.85);
 }
 
@@ -522,8 +530,8 @@ button.btn-pill:disabled {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.35);
   box-shadow:
-    0 0 24px rgba(139, 92, 246, 0.2),
-    0 0 48px rgba(59, 130, 246, 0.12);
+    0 0 24px rgba(249, 115, 22, 0.2),
+    0 0 48px rgba(251, 191, 36, 0.12);
 }
 
 .btn-pill:active {
@@ -553,9 +561,9 @@ button.btn-pill:disabled {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(139, 92, 246, 0.35),
-    rgba(59, 130, 246, 0.15),
-    rgba(244, 114, 182, 0.25)
+    rgba(249, 115, 22, 0.35),
+    rgba(251, 191, 36, 0.15),
+    rgba(234, 88, 12, 0.3)
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -575,7 +583,7 @@ button.btn-pill:disabled {
   transform: translateY(-4px);
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.45),
-    0 0 60px rgba(139, 92, 246, 0.08);
+    0 0 60px rgba(249, 115, 22, 0.08);
 }
 
 .card:hover::before {
@@ -592,9 +600,9 @@ button.btn-pill:disabled {
   inset: -12%;
   border-radius: var(--radius-container);
   background:
-    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(139, 92, 246, 0.18), transparent 70%),
-    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(59, 130, 246, 0.14), transparent 70%),
-    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(244, 114, 182, 0.1), transparent 70%);
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(249, 115, 22, 0.18), transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(251, 191, 36, 0.14), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(234, 88, 12, 0.14), transparent 70%);
   filter: blur(40px);
   pointer-events: none;
 }
@@ -609,8 +617,8 @@ button.btn-pill:disabled {
   -webkit-backdrop-filter: blur(16px);
   box-shadow:
     0 24px 48px rgba(0, 0, 0, 0.5),
-    0 0 80px rgba(139, 92, 246, 0.1),
-    0 0 120px rgba(59, 130, 246, 0.06);
+    0 0 80px rgba(249, 115, 22, 0.1),
+    0 0 120px rgba(251, 191, 36, 0.06);
 }
 
 .portfolio-banner__frame::before {
@@ -621,9 +629,9 @@ button.btn-pill:disabled {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(139, 92, 246, 0.45),
-    rgba(59, 130, 246, 0.2),
-    rgba(244, 114, 182, 0.35)
+    rgba(249, 115, 22, 0.45),
+    rgba(251, 191, 36, 0.2),
+    rgba(234, 88, 12, 0.4)
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -702,7 +710,7 @@ button.btn-pill:disabled {
 }
 
 .montage-carousel::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.35);
+  background: rgba(249, 115, 22, 0.35);
 }
 
 .montage-carousel:focus-visible {

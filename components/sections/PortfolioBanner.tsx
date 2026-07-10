@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import { assetPath } from "@/lib/assets";
 
 const PORTFOLIO_DRIVE_URL =
   "https://drive.google.com/drive/folders/1Lb0caRhlvL8Fg4v6z3aVop6eIGqo632R?usp=sharing";
@@ -26,12 +27,12 @@ export default function PortfolioBanner() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Otwórz portfolio shortsów na Google Drive"
-            className="group/portfolio-link block cursor-pointer rounded-[var(--radius-container)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-400"
+            className="group/portfolio-link block cursor-pointer rounded-[var(--radius-container)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-400"
           >
-            <div className="portfolio-banner__frame transition-transform duration-300 ease-out group-hover/portfolio-link:scale-[1.015] group-hover/portfolio-link:shadow-[0_24px_48px_rgba(0,0,0,0.5),0_0_100px_rgba(139,92,246,0.22),0_0_140px_rgba(59,130,246,0.12)]">
+            <div className="portfolio-banner__frame transition-transform duration-300 ease-out group-hover/portfolio-link:scale-[1.015] group-hover/portfolio-link:shadow-[0_24px_48px_rgba(0,0,0,0.5),0_0_100px_rgba(249,115,22,0.22),0_0_140px_rgba(251,191,36,0.12)]">
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image
-                  src="/portfolio/portfolio-banner.png"
+                  src={assetPath("/portfolio/portfolio-banner.png")}
                   alt="Kolaż portfolio — montaż wideo i projekty programistyczne"
                   fill
                   sizes="(max-width: 768px) 100vw, 1152px"

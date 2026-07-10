@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { assetPath } from "@/lib/assets";
 import { MONTAGE_WORKS } from "@/lib/constants";
 
 export default function MontagePortfolio() {
@@ -30,7 +31,7 @@ export default function MontagePortfolio() {
                 <article className="card group flex h-full flex-col">
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--color-surface)]">
                     <Image
-                      src={work.image}
+                      src={assetPath(work.image)}
                       alt={work.imageAlt}
                       fill
                       sizes="340px"

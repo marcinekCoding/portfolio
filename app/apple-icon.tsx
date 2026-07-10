@@ -35,7 +35,7 @@ export default function AppleIcon() {
             fontWeight: 700,
             fontFamily: "system-ui, sans-serif",
             background:
-              "linear-gradient(120deg, #8b5cf6 0%, #3b82f6 45%, #22d3ee 100%)",
+              "linear-gradient(120deg, #f97316 0%, #fbbf24 45%, #fb923c 100%)",
             backgroundClip: "text",
             color: "transparent",
           }}

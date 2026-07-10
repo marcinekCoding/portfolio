@@ -11,7 +11,7 @@ type ShaderMeshBackgroundProps = {
 const LERP = 0.115;
 
 const ORB_WRAPS = [
-  { wrap: "shader-orb-wrap--violet", orb: "shader-orb--violet" },
+  { wrap: "shader-orb-wrap--orange", orb: "shader-orb--orange" },
   { wrap: "shader-orb-wrap--blue", orb: "shader-orb--blue" },
   { wrap: "shader-orb-wrap--coral", orb: "shader-orb--coral" },
   { wrap: "shader-orb-wrap--mint", orb: "shader-orb--mint" },

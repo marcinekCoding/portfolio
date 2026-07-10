@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ExternalLink, FolderCode, Github } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { assetPath } from "@/lib/assets";
 import { DEV_PROJECTS } from "@/lib/constants";
 
 export default function DevProjects() {
@@ -43,7 +44,7 @@ export default function DevProjects() {
                 {project.image && (
                   <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--color-surface)]">
                     <Image
-                      src={project.image}
+                      src={assetPath(project.image)}
                       alt={project.imageAlt ?? project.name}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
