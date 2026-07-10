@@ -16,7 +16,7 @@ const AREAS = [
     accent: "var(--color-accent-dev)",
     title: "Programowanie",
     description:
-      "Projekty webowe i narzędzia — Photo Cropper, Smart Home Engine, gra w wisielca i ta strona portfolio.",
+      "Jako student nieustannie się uczę i powiększam moją bazę projektów.",
     href: "#projekty",
     linkLabel: "Zobacz projekty",
   },

@@ -523,6 +523,61 @@ button.btn-pill:disabled {
   opacity: 1;
 }
 
+/* Portfolio banner — cinematic glass frame (Shader-inspired) */
+.portfolio-banner {
+  position: relative;
+}
+
+.portfolio-banner__glow {
+  position: absolute;
+  inset: -12%;
+  border-radius: var(--radius-container);
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(139, 92, 246, 0.18), transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(59, 130, 246, 0.14), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(244, 114, 182, 0.1), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.portfolio-banner__frame {
+  position: relative;
+  border-radius: var(--radius-container);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(139, 92, 246, 0.1),
+    0 0 120px rgba(59, 130, 246, 0.06);
+}
+
+.portfolio-banner__frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.45),
+    rgba(59, 130, 246, 0.2),
+    rgba(244, 114, 182, 0.35)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
 /* Tag / badge (design.md §9.5) */
 .tag {
   font-family: var(--font-jetbrains), monospace;
@@ -557,6 +612,99 @@ button.btn-pill:disabled {
   transform: scaleX(1);
 }
 
+/* Montage portfolio — horizontal scroll carousel */
+.montage-carousel-wrap {
+  --montage-card-width: clamp(300px, 78vw, 360px);
+}
+
+.montage-carousel {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  padding-bottom: 0.5rem;
+}
+
+.montage-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.montage-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.montage-carousel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+.montage-carousel::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.35);
+}
+
+.montage-carousel:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+}
+
+.montage-carousel__track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  padding-inline: max(1rem, calc((100vw - min(72rem, 100vw - 2rem)) / 2 + 1rem));
+  padding-block: 0.25rem 0.75rem;
+}
+
+.montage-carousel__item {
+  flex: 0 0 var(--montage-card-width);
+  width: var(--montage-card-width);
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+.montage-carousel__item.reveal {
+  transform: translateY(24px);
+}
+
+.montage-carousel__item.reveal.is-visible {
+  transform: translateY(0);
+}
+
+.montage-carousel__fade {
+  position: absolute;
+  top: 0;
+  bottom: 0.5rem;
+  width: clamp(2rem, 8vw, 5rem);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.montage-carousel__fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg) 0%, transparent 100%);
+}
+
+.montage-carousel__fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg) 0%, transparent 100%);
+}
+
+.montage-carousel__hint {
+  position: absolute;
+  right: max(1rem, calc((100vw - min(72rem, 100vw - 2rem)) / 2 + 1rem));
+  bottom: 0;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -588,5 +736,10 @@ button.btn-pill:disabled {
 
   .shader-mesh__orbs {
     transform: none !important;
+  }
+
+  .montage-carousel {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
   }
 }

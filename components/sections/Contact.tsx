@@ -62,6 +62,10 @@ export default function Contact() {
           )}
         </Reveal>
 
+        <p className="font-display mx-auto mt-10 max-w-3xl text-center text-[clamp(1.5rem,4vw,2.5rem)] leading-[1.1] text-gradient sm:mt-12">
+          Wszystkie ceny ustalane są indywidualnie z klientem.
+        </p>
+
         <div className="mt-20 flex flex-col gap-2 border-t border-[var(--color-border)] pt-8 text-xs text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {SITE.name}

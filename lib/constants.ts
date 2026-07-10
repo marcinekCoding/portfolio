@@ -44,9 +44,9 @@ export const MONTAGE_WORKS: MontageWork[] = [
   {
     id: "vlogi",
     category: "Vlogi",
-    title: "Turkey Vlog",
+    title: "Filmy z podróży",
     description:
-      "Vlog podróżniczy z Turcji — montaż całości materiału.",
+      "Montuję vlogi pełne uczuć, przeżyć i niezapomnianych chwil.",
     image: "/portfolio/vlogi.png",
     imageAlt: "Kadr z vloga z Turcji — palmy na tle błękitnego nieba i napis Turkey Vlog",
     href: "", // TODO: link do pełnego vloga (YouTube/Drive), jeśli chcesz go podlinkować
@@ -54,9 +54,9 @@ export const MONTAGE_WORKS: MontageWork[] = [
   {
     id: "shortsy",
     category: "Shorty",
-    title: "Short — dynamiczny montaż pionowy",
+    title: "Shortsy",
     description:
-      "Krótka forma pionowa pod social media — szybkie cięcia i napisy.",
+      "Duże doświadczenie w montowaniu filmów typowo pod YouTube Shorts i TikToka.",
     image: "/portfolio/shortsy.png",
     imageAlt: "Kadr z pionowego shorta — grupa osób na plaży z przyciskiem subskrypcji",
     href: "https://drive.google.com/file/d/1CnZsq-pf96xNUEZ7JlR_hnYy4QdokAB5/view?usp=sharing",
@@ -66,7 +66,7 @@ export const MONTAGE_WORKS: MontageWork[] = [
   {
     id: "eventy",
     category: "Filmy okolicznościowe",
-    title: "Film z eventu",
+    title: "Filmy z eventu",
     description:
       "Relacja filmowa z imprezy okolicznościowej — klimat i energia wydarzenia.",
     image: "/portfolio/fimy_okolicznosciowe.png",
@@ -76,7 +76,7 @@ export const MONTAGE_WORKS: MontageWork[] = [
   {
     id: "urodziny",
     category: "Filmy urodzinowe",
-    title: "18 urodziny Patryka",
+    title: "18 urodziny",
     description:
       "Film urodzinowy z czołówką w stylu kinowego intro.",
     image: "/portfolio/filmyUrodzinowe.png",
