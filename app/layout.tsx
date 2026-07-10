@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import {
   Inter,
   JetBrains_Mono,
@@ -52,6 +53,11 @@ export default function RootLayout({
       >
         <AmbientBackground />
         {children}
+        <Script
+          data-goatcounter="https://marcinek.goatcounter.com/count"
+          src="https://gc.zgo.at/count.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

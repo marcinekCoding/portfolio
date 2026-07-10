@@ -57,8 +57,8 @@ export const MONTAGE_WORKS: MontageWork[] = [
     title: "Shortsy",
     description:
       "Duże doświadczenie w montowaniu filmów typowo pod YouTube Shorts i TikToka.",
-    image: "/portfolio/shortsy.png",
-    imageAlt: "Kadr z pionowego shorta — grupa osób na plaży z przyciskiem subskrypcji",
+    image: "/portfolio/czajnik.jpg",
+    imageAlt: "Kadr z pionowego shorta — czajnik z napisem „Czy to jest czajnik?”",
     href: "https://drive.google.com/file/d/1CnZsq-pf96xNUEZ7JlR_hnYy4QdokAB5/view?usp=sharing",
     linkLabel: "Obejrzyj na Google Drive",
     vertical: true,
@@ -81,6 +81,16 @@ export const MONTAGE_WORKS: MontageWork[] = [
       "Film urodzinowy z czołówką w stylu kinowego intro.",
     image: "/portfolio/filmyUrodzinowe.png",
     imageAlt: "Kadr czołówki filmu urodzinowego — złoty napis 18 urodziny Patryka w stylu kinowym",
+    href: "", // TODO: link do filmu, jeśli chcesz go podlinkować
+  },
+  {
+    id: "lifestyle",
+    category: "Filmy lifestyle",
+    title: "Lifestyle",
+    description:
+      "Filmy lifestyle często na platformie YouTube.",
+    image: "/portfolio/lifestyle.png",
+    imageAlt: "Kadr z filmu lifestyle — podgląd realizacji na YouTube",
     href: "", // TODO: link do filmu, jeśli chcesz go podlinkować
   },
 ];
