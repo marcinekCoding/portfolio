@@ -77,60 +77,119 @@ body {
 }
 
 .shader-mesh__orbs {
+  --pointer-x: 0;
+  --pointer-y: 0;
   position: absolute;
   inset: -20%;
   will-change: transform;
-  transition: transform 600ms var(--ease-cinematic);
+}
+
+.shader-mesh--cursor .shader-mesh__orbs {
+  transform: translate3d(
+    calc(var(--pointer-x) * 52px),
+    calc(var(--pointer-y) * 42px),
+    0
+  );
+}
+
+.shader-orb-wrap {
+  position: absolute;
+  will-change: transform;
+}
+
+.shader-mesh--cursor .shader-orb-wrap--violet {
+  transform: translate3d(
+    calc(var(--pointer-x) * 140px),
+    calc(var(--pointer-y) * 104px),
+    0
+  );
+}
+
+.shader-mesh--cursor .shader-orb-wrap--blue {
+  transform: translate3d(
+    calc(var(--pointer-x) * -115px),
+    calc(var(--pointer-y) * 86px),
+    0
+  );
+}
+
+.shader-mesh--cursor .shader-orb-wrap--coral {
+  transform: translate3d(
+    calc(var(--pointer-x) * 100px),
+    calc(var(--pointer-y) * -92px),
+    0
+  );
+}
+
+.shader-mesh--cursor .shader-orb-wrap--mint {
+  transform: translate3d(
+    calc(var(--pointer-x) * -85px),
+    calc(var(--pointer-y) * -78px),
+    0
+  );
 }
 
 .shader-orb {
-  position: absolute;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   filter: blur(72px);
   opacity: 0.72;
   mix-blend-mode: screen;
 }
 
-.shader-orb--violet {
+.shader-orb-wrap--violet {
   width: 55vw;
   height: 55vw;
   max-width: 520px;
   max-height: 520px;
   left: 8%;
   top: 12%;
+}
+
+.shader-orb--violet {
   background: radial-gradient(circle, var(--shader-violet) 0%, transparent 70%);
   animation: shader-float-a 22s ease-in-out infinite;
 }
 
-.shader-orb--blue {
+.shader-orb-wrap--blue {
   width: 48vw;
   height: 48vw;
   max-width: 460px;
   max-height: 460px;
   right: 5%;
   top: 18%;
+}
+
+.shader-orb--blue {
   background: radial-gradient(circle, var(--shader-blue) 0%, transparent 70%);
   animation: shader-float-b 26s ease-in-out infinite;
 }
 
-.shader-orb--coral {
+.shader-orb-wrap--coral {
   width: 42vw;
   height: 42vw;
   max-width: 400px;
   max-height: 400px;
   left: 28%;
   bottom: 8%;
+}
+
+.shader-orb--coral {
   background: radial-gradient(circle, var(--shader-coral) 0%, transparent 70%);
   animation: shader-float-c 20s ease-in-out infinite;
 }
 
-.shader-orb--mint {
+.shader-orb-wrap--mint {
   width: 36vw;
   height: 36vw;
   max-width: 340px;
   max-height: 340px;
   right: 22%;
   bottom: 14%;
+}
+
+.shader-orb--mint {
   background: radial-gradient(circle, var(--shader-mint) 0%, transparent 70%);
   animation: shader-float-d 24s ease-in-out infinite;
 }
@@ -734,7 +793,8 @@ button.btn-pill:disabled {
     animation: none !important;
   }
 
-  .shader-mesh__orbs {
+  .shader-mesh__orbs,
+  .shader-orb-wrap {
     transform: none !important;
   }
 

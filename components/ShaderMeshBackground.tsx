@@ -3,18 +3,30 @@
 import { useEffect, useRef, useState } from "react";
 
 type ShaderMeshBackgroundProps = {
-  /** 0–1 — siła reakcji na kursor (Shader-style subtle drift) */
+  /** Enables cursor-following parallax on orbs (hero) */
   interactive?: boolean;
   className?: string;
 };
+
+const LERP = 0.115;
+
+const ORB_WRAPS = [
+  { wrap: "shader-orb-wrap--violet", orb: "shader-orb--violet" },
+  { wrap: "shader-orb-wrap--blue", orb: "shader-orb--blue" },
+  { wrap: "shader-orb-wrap--coral", orb: "shader-orb--coral" },
+  { wrap: "shader-orb-wrap--mint", orb: "shader-orb--mint" },
+] as const;
 
 export default function ShaderMeshBackground({
   interactive = true,
   className = "",
 }: ShaderMeshBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const orbsRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(true);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const targetRef = useRef({ x: 0, y: 0 });
+  const currentRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -27,33 +39,77 @@ export default function ShaderMeshBackground({
   useEffect(() => {
     if (!interactive || reducedMotion) return;
 
+    let rafId = 0;
+
+    const getBounds = () => {
+      const section =
+        containerRef.current?.closest("section") ??
+        containerRef.current?.parentElement;
+
+      if (section) {
+        return section.getBoundingClientRect();
+      }
+
+      return {
+        left: 0,
+        top: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      } as DOMRect;
+    };
+
     const onMove = (event: PointerEvent) => {
-      const x = (event.clientX / window.innerWidth - 0.5) * 2;
-      const y = (event.clientY / window.innerHeight - 0.5) * 2;
-      setOffset({ x, y });
+      const rect = getBounds();
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = (event.clientY - rect.top) / rect.height;
+
+      targetRef.current = {
+        x: (nx - 0.5) * 2,
+        y: (ny - 0.5) * 2,
+      };
+    };
+
+    const tick = () => {
+      const target = targetRef.current;
+      const current = currentRef.current;
+
+      current.x += (target.x - current.x) * LERP;
+      current.y += (target.y - current.y) * LERP;
+
+      const orbs = orbsRef.current;
+      if (orbs) {
+        orbs.style.setProperty("--pointer-x", current.x.toFixed(4));
+        orbs.style.setProperty("--pointer-y", current.y.toFixed(4));
+      }
+
+      rafId = requestAnimationFrame(tick);
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(rafId);
+    };
   }, [interactive, reducedMotion]);
 
-  const drift = reducedMotion
-    ? {}
-    : {
-        transform: `translate3d(${offset.x * 18}px, ${offset.y * 14}px, 0)`,
-      };
+  const meshClass = [
+    "shader-mesh",
+    interactive && !reducedMotion ? "shader-mesh--cursor" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div
-      ref={containerRef}
-      className={`shader-mesh ${className}`}
-      aria-hidden="true"
-    >
-      <div className="shader-mesh__orbs" style={drift}>
-        <div className="shader-orb shader-orb--violet" />
-        <div className="shader-orb shader-orb--blue" />
-        <div className="shader-orb shader-orb--coral" />
-        <div className="shader-orb shader-orb--mint" />
+    <div ref={containerRef} className={meshClass} aria-hidden="true">
+      <div ref={orbsRef} className="shader-mesh__orbs">
+        {ORB_WRAPS.map(({ wrap, orb }) => (
+          <div key={wrap} className={`shader-orb-wrap ${wrap}`}>
+            <div className={`shader-orb ${orb}`} />
+          </div>
+        ))}
       </div>
       <div className="shader-mesh__noise" />
       <div className="shader-mesh__scrim" />
