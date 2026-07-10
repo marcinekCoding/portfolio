@@ -1,0 +1,592 @@
+@import "tailwindcss";
+
+:root {
+  /* Tła — czysta czerń jak w referencji SIENA (design.md §2) */
+  --color-bg: #000000;
+  --color-bg-elevated: #0a0a0a;
+  --color-surface: #111111;
+
+  /* Tekst */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #6b6b6b;
+
+  /* Powierzchnie kontrastowe */
+  --color-overlay-light: #f5f0eb;
+  --color-on-overlay: #0a0a0a;
+
+  /* Obramowania */
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+
+  /* Akcenty — paleta Shader-inspired (żywe gradienty na czerni) */
+  --color-accent-montaz: #c9a96e;
+  --color-accent-dev: #8b9daf;
+  --shader-violet: #8b5cf6;
+  --shader-blue: #3b82f6;
+  --shader-coral: #f472b6;
+  --shader-mint: #22d3ee;
+  --shader-orange: #fb923c;
+
+  /* Stany */
+  --color-scrim: rgba(0, 0, 0, 0.65);
+  --color-focus-ring: rgba(255, 255, 255, 0.5);
+
+  /* Radius — sygnatura SIENA (design.md §4.3) */
+  --radius-container: 48px;
+  --radius-card: 32px;
+  --radius-button: 9999px;
+
+  /* Motion (design.md §10.2) */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-micro: 150ms;
+  --duration-fast: 250ms;
+  --duration-medium: 400ms;
+  --duration-slow: 600ms;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-surface: var(--color-surface);
+  --font-display: var(--font-display-sans), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+  --font-pixel: var(--font-press-start), monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Shader-style animated mesh (hero) */
+.shader-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.shader-mesh__orbs {
+  position: absolute;
+  inset: -20%;
+  will-change: transform;
+  transition: transform 600ms var(--ease-cinematic);
+}
+
+.shader-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.72;
+  mix-blend-mode: screen;
+}
+
+.shader-orb--violet {
+  width: 55vw;
+  height: 55vw;
+  max-width: 520px;
+  max-height: 520px;
+  left: 8%;
+  top: 12%;
+  background: radial-gradient(circle, var(--shader-violet) 0%, transparent 70%);
+  animation: shader-float-a 22s ease-in-out infinite;
+}
+
+.shader-orb--blue {
+  width: 48vw;
+  height: 48vw;
+  max-width: 460px;
+  max-height: 460px;
+  right: 5%;
+  top: 18%;
+  background: radial-gradient(circle, var(--shader-blue) 0%, transparent 70%);
+  animation: shader-float-b 26s ease-in-out infinite;
+}
+
+.shader-orb--coral {
+  width: 42vw;
+  height: 42vw;
+  max-width: 400px;
+  max-height: 400px;
+  left: 28%;
+  bottom: 8%;
+  background: radial-gradient(circle, var(--shader-coral) 0%, transparent 70%);
+  animation: shader-float-c 20s ease-in-out infinite;
+}
+
+.shader-orb--mint {
+  width: 36vw;
+  height: 36vw;
+  max-width: 340px;
+  max-height: 340px;
+  right: 22%;
+  bottom: 14%;
+  background: radial-gradient(circle, var(--shader-mint) 0%, transparent 70%);
+  animation: shader-float-d 24s ease-in-out infinite;
+}
+
+.shader-mesh__noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.shader-mesh__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 45%, transparent 0%, rgba(0, 0, 0, 0.55) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, transparent 35%, rgba(0, 0, 0, 0.75) 100%);
+  pointer-events: none;
+}
+
+@keyframes shader-float-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6%, 4%) scale(1.06);
+  }
+  66% {
+    transform: translate(-4%, 8%) scale(0.96);
+  }
+}
+
+@keyframes shader-float-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-8%, 6%) scale(1.08);
+  }
+}
+
+@keyframes shader-float-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(5%, -6%) scale(1.05);
+  }
+}
+
+@keyframes shader-float-d {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  60% {
+    transform: translate(-6%, -4%) scale(1.04);
+  }
+}
+
+/* Subtelne tło na całej stronie (Shader — życie poza hero) */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.22;
+  mix-blend-mode: screen;
+}
+
+.ambient-orb--a {
+  width: 40vw;
+  height: 40vw;
+  max-width: 480px;
+  left: -8%;
+  top: 42%;
+  background: radial-gradient(circle, var(--shader-violet) 0%, transparent 70%);
+  animation: shader-float-b 32s ease-in-out infinite;
+}
+
+.ambient-orb--b {
+  width: 35vw;
+  height: 35vw;
+  max-width: 420px;
+  right: -6%;
+  top: 68%;
+  background: radial-gradient(circle, var(--shader-blue) 0%, transparent 70%);
+  animation: shader-float-c 28s ease-in-out infinite;
+}
+
+.text-gradient {
+  background: linear-gradient(
+    120deg,
+    #fff 0%,
+    #e9d5ff 35%,
+    #93c5fd 65%,
+    #fda4af 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.label-gradient {
+  background: linear-gradient(90deg, var(--shader-violet), var(--shader-coral));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+::selection {
+  background: rgba(201, 169, 110, 0.35);
+  color: #ffffff;
+}
+
+/* Etykiety UI — uppercase, szeroki tracking (design.md §3.2) */
+.label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.font-display {
+  font-family: var(--font-display-sans), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.font-mono-tag {
+  font-family: var(--font-jetbrains), monospace;
+}
+
+/* 8-bit display — hero headline (Press Start 2P) */
+.font-pixel {
+  font-family: var(--font-press-start), monospace;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+/* Fokus dla klawiatury */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Formularz kontaktowy */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  padding: 0.875rem 1.125rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  transition: border-color var(--duration-micro) ease;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-input:hover:not(:disabled),
+.form-textarea:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+}
+
+.form-input:disabled,
+.form-textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.form-feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  border-radius: 1rem;
+  padding: 0.875rem 1.125rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.form-feedback--success {
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  background: rgba(201, 169, 110, 0.08);
+  color: var(--color-text-primary);
+}
+
+.form-feedback--error {
+  border: 1px solid rgba(220, 80, 80, 0.35);
+  background: rgba(220, 80, 80, 0.08);
+  color: var(--color-text-primary);
+}
+
+button.btn-pill:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Scroll reveal — animowane wejścia sekcji */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-slow) var(--ease-cinematic),
+    transform var(--duration-slow) var(--ease-cinematic);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero reveal — animacja wejścia po załadowaniu (design.md §5.5) */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-reveal {
+  opacity: 0;
+  animation: hero-fade-up 800ms var(--ease-cinematic) forwards;
+}
+
+.hero-reveal-delay-1 {
+  animation-delay: 200ms;
+}
+
+.hero-reveal-delay-2 {
+  animation-delay: 400ms;
+}
+
+.hero-reveal-delay-3 {
+  animation-delay: 600ms;
+}
+
+/* Hero — Shader-inspired */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-title {
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  text-shadow:
+    0 0 40px rgba(139, 92, 246, 0.35),
+    0 2px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* Pill button — glass (Shader-style) */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-button);
+  padding: 0.75rem 1.75rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition:
+    background var(--duration-micro) ease,
+    border-color var(--duration-micro) ease,
+    transform var(--duration-micro) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+.btn-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 0 24px rgba(139, 92, 246, 0.2),
+    0 0 48px rgba(59, 130, 246, 0.12);
+}
+
+.btn-pill:active {
+  transform: scale(0.98);
+}
+
+/* Karta — glass + gradient border (Shader-inspired) */
+.card {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition:
+    border-color 300ms ease,
+    transform 300ms var(--ease-cinematic),
+    box-shadow 300ms ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.35),
+    rgba(59, 130, 246, 0.15),
+    rgba(244, 114, 182, 0.25)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.45),
+    0 0 60px rgba(139, 92, 246, 0.08);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Tag / badge (design.md §9.5) */
+.tag {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  color: var(--color-text-secondary);
+}
+
+/* Animowany underline linków */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms var(--ease-cinematic);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .hero-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-bg__media {
+    inset: -4%;
+    transform: scale(1.05) !important;
+  }
+
+  .shader-orb,
+  .ambient-orb {
+    animation: none !important;
+  }
+
+  .shader-mesh__orbs {
+    transform: none !important;
+  }
+}
